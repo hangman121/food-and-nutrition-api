@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: food-nutrition-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app --timeout 120 --workers 1
+    envVars:
+      - key: FATSECRET_CONSUMER_KEY
+        value: 2e93840365144042bdfb6ce964f87e6f
+      - key: FATSECRET_CONSUMER_SECRET
+        value: e6b0331612e749fcb79837e57ae9df76
+      - key: PYTHON_VERSION
+        value: 3.9.18
