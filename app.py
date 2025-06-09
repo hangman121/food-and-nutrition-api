@@ -520,16 +520,30 @@ def predict_food(image):
     try:
         # Preprocess the image
         processed_image = preprocess_image(image)
+        print(f"Processed image - Mode: {processed_image.mode}, Size: {processed_image.size}")
         
-        # Process with the model's processor
-        inputs = processor(
-            images=processed_image, 
-            return_tensors="pt",
-            do_rescale=True,
-            do_normalize=True,
-            do_resize=True,
-            size={"height": 224, "width": 224}  # Explicit size for Swin
-        ).to(device)
+        # Alternative approach: Use the processor with minimal parameters
+        try:
+            # Method 1: Simple processing
+            inputs = processor(processed_image, return_tensors="pt")
+            inputs = {k: v.to(device) for k, v in inputs.items()}
+        except Exception as e1:
+            print(f"Method 1 failed: {e1}")
+            try:
+                # Method 2: With padding
+                inputs = processor([processed_image], return_tensors="pt", padding=True)
+                inputs = {k: v.to(device) for k, v in inputs.items()}
+            except Exception as e2:
+                print(f"Method 2 failed: {e2}")
+                # Method 3: Manual preprocessing
+                from torchvision import transforms
+                transform = transforms.Compose([
+                    transforms.Resize((224, 224)),
+                    transforms.ToTensor(),
+                    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+                ])
+                pixel_values = transform(processed_image).unsqueeze(0).to(device)
+                inputs = {"pixel_values": pixel_values}
         
         with torch.no_grad():
             outputs = model(**inputs)
@@ -546,6 +560,7 @@ def predict_food(image):
         
     except Exception as e:
         print(f"Error in predict_food: {e}")
+        print(f"Image mode: {image.mode}, size: {image.size}")
         raise
 
 @app.route('/health', methods=['GET'])
