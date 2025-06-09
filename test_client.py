@@ -49,7 +49,7 @@ if __name__ == "__main__":
     test_health_check()
     
     # Test with your food image
-    image_path = r"C:\Users\SYED HASHAM HAMEED\OneDrive - University of Engineering and Technology Taxila\Desktop\food recognition and nutrition contents\Samosa.jpg"  # Change this path
+    image_path = r"C:\Users\SYED HASHAM HAMEED\OneDrive - University of Engineering and Technology Taxila\Desktop\food recognition and nutrition contents\Samosa (1).jpg"  # Change this path
     
     # Uncomment these lines when you have an image to test
     test_file_upload(image_path)
