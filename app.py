@@ -291,10 +291,9 @@ def home():
     }
     return jsonify(docs)
 
+# Always load models when app is imported (e.g. by gunicorn)
+load_models()
+
 if __name__ == '__main__':
-    # Load models on startup
-    load_models()
-    
-    # Run the app
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
