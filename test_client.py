@@ -3,7 +3,7 @@ import base64
 import json
 
 # Test the deployed API
-API_URL = "http://localhost:5000"  # Change this to your deployed URL
+API_URL = "https://food-and-nutrition-api.onrender.com"  # Change this to your deployed URL
 
 def test_file_upload(image_path):
     """Test with file upload"""
@@ -49,8 +49,8 @@ if __name__ == "__main__":
     test_health_check()
     
     # Test with your food image
-    image_path = "path/to/your/food_image.jpg"  # Change this path
+    image_path = r"C:\Users\SYED HASHAM HAMEED\OneDrive - University of Engineering and Technology Taxila\Desktop\food recognition and nutrition contents\Samosa.jpg"  # Change this path
     
     # Uncomment these lines when you have an image to test
-    # test_file_upload(image_path)
-    # test_base64_upload(image_path)
+    test_file_upload(image_path)
+    test_base64_upload(image_path)
