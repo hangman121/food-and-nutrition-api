@@ -3,7 +3,7 @@ import base64
 import json
 
 # Test the deployed API
-API_URL = "https://food-and-nutrition-api.onrender.com"  # Change this to your deployed URL
+API_URL = "https://food-nutrition-app-glza5.ondigitalocean.app"  # Change this to your deployed URL
 
 def test_file_upload(image_path):
     """Test with file upload"""
